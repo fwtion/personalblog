@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="blog/layout" th:with="title='',active='home'">
+<header >我的博客</header> <a href="/addArticleindex">写博客</a>
+<br><br>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <section id="posts" class="posts-expand">
+                <tr  th:each="post,iterStat : ${pageInfo.list}">
+                    <th scope="row" th:text="${post.authorName}"></th>
+                    <a class="btn" th:href="@{'/detail/'+${post.authorId}}" ><td th:text="${post.title}"></td></a><br><br>
+                </tr>
+            </section>
+            <!--分页-->
+            <div class="lists-navigator clearfix">
+                <th:block th:if="${pageInfo.hasPreviousPage}">
+                    <a class="extend prev" rel="prev" th:href="@{'?page='+${pageInfo.prePage}}">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </th:block>
+
+                <!--<span class="page-number" href="?page=1">首页</span>-->
+
+
+                <th:block th:each=" nav : ${pageInfo.navigatepageNums}">
+        <span th:class="${nav==pageInfo.pageNum} ? 'current' : ''">
+            <a class="page-number" th:href="@{'?page='+${nav} }" th:text="${nav}"></a>
+
+        </span>
+                </th:block>
+
+
+                <!--<a class="page-number" th:href="@{'?page='+${pageInfo.pages}" th:text="${pageInfo.pages}"></a>-->
+
+                <th:block th:if="${pageInfo.hasNextPage}">
+                    <a class="extend next" rel="next"  th:href="@{'?page='+${pageInfo.nextPage}}">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </th:block>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

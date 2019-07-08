@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<body>
+<div>
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <div id="posts" class="posts-expand">
+                <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+                    <div class="post-block" style="opacity: 1; display: block;">
+                        <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
+                            <h1 class="post-title" itemprop="name headline" th:text="${art.title}"></h1>
+                            <div class="post-meta">
+                            </div>
+                        </header>
+                        <div class="post-body" itemprop="articleBody" style="opacity: 1; display: block; transform: translateY(0px);">
+                            <th:block th:utext="${art.content}"></th:block>
+                        </div>
+                    </div>
+                </article>
+                <div class="post-spread">
+                </div>
+            </div>
+        </div>
+        <div class="comments" id="comments" style="opacity: 1; display: block;">
+            <div id="comments-content" class="segment">
+                <h3 class="dividing">评论</h3>
+                <th:block th:if="${comment}">
+                    <div th:each="comm : ${comment}" class="comment">
+<!--                        <a class="avatar">-->
+<!--                            <img th:src="@{../static/blog/image/avatar.png}">-->
+<!--                        </a>-->
+                        <div class="content">
+                            用户名：
+                            <span th:text="${comm.commentName}"></span><br>
+
+<!--                            <div class="metadata">-->
+<!--                                <span class="date" th:text="${commons.fmtdate(comment.created, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--                            </div>-->
+                            评论内容：
+                            <div class="text" th:text="${comm.commentContent}"></div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+            <div class="comment-form">
+
+                <form action="/commentEdit" method="post">
+                    <input type="hidden" name="authorId" id="authorId" th:value="${art.authorId}">
+                    <textarea id="comment-content" required="required" class="form-control" name="commentContent" placeholder="请输入评论信息..." cols="30" rows="7"></textarea>
+                    <input id="nickname" required="required" type="text" name="commentName" placeholder="姓名">
+                    <input type="submit" value="发布" >
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

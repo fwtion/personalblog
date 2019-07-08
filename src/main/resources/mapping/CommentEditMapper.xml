@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cogn.personalblog.dao.CommentEditMapper">
+	<!--表名-->
+	<sql id="BASE_TABLE">
+        comment
+    </sql>
+
+	<!--附件表列名-->
+	<sql id="BASE_COLUMN">
+        aa.comId, aa.commentName, aa.commentContent, aa.authorId,
+    </sql>
+	<!--新增单个附件-->
+	<insert id="commentEdit" parameterType="com.cogn.personalblog.pojo.Comment">
+		INSERT INTO
+		<include refid="BASE_TABLE"/>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			comId,
+			commentName,
+			commentContent,
+			authorId,
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			#{comId, jdbcType=INTEGER},
+			#{commentName, jdbcType=VARCHAR},
+			#{commentContent, jdbcType=VARCHAR},
+			#{authorId, jdbcType=INTEGER}
+		</trim>
+	</insert>
+</mapper>
